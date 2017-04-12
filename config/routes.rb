@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :followers, except: [:edit, :update]
+  resources :tweets, except: [:edit, :update]
+
+  devise_for :users
+
+  root to: 'homes#index'
 end
