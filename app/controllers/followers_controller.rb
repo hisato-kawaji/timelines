@@ -4,8 +4,8 @@ class FollowersController < ApplicationController
   # GET /followers
   # GET /followers.json
   def index
-    @followers = User.find(current_user.id).follower_users
-    @followees = User.find(current_user.id).followee_users
+    @followers = current_user.follower_users
+    @followees = current_user.followee_users
   end
 
   # GET /followers/1

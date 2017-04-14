@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :tweet
   has_many :followers, class_name: 'Follower', foreign_key: 'user_id', dependent: :destroy
   has_many :followees, class_name: 'Follower', foreign_key: 'follower_id', dependent: :destroy
@@ -20,4 +18,8 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 32 }, on: :devise
 
   scope :get_others, ->(user_id) { where_not id: user_id }
+
+  def get_timelines
+    Tweet.joins(:user).where(user_id: follower_users.ids)
+  end
 end

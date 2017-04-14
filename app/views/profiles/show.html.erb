@@ -1,0 +1,55 @@
+<%- tweet_model_class = Tweet -%>
+<%- follower_model_class = Follower -%>
+<h1>Profiles</h1>
+
+<%= @user.email %> 
+
+<h1><%=t '.title', :default => tweet_model_class.model_name.human.pluralize.titleize %></h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= tweet_model_class.human_attribute_name(:id) %></th>
+      <th><%= tweet_model_class.human_attribute_name(:tweet) %></th>
+      <th><%= tweet_model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tweets.each do |tweet| %>
+      <tr>
+        <td><%= link_to tweet.id, tweet_path(tweet) %></td>
+        <td><%= tweet.tweet %></td>
+        <td><%= tweet.created_at %></td>
+        <td>
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      tweet_path(tweet), :class => 'btn btn-default btn-xs' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h1><%=t '.title', :default => follower_model_class.model_name.human.pluralize.titleize %></h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= follower_model_class.human_attribute_name(:id) %></th>
+      <th><%= follower_model_class.human_attribute_name(:email) %></th>
+      <th><%= follower_model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @followers.each do |follower| %>
+      <tr>
+        <td><%= link_to follower.id, follower_path(follower) %></td>
+        <td><%= follower.email %></td>
+        <td><%=l follower.created_at %></td>
+        <td>
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      profiles_show_path(id: follower.id), :class => 'btn btn-default btn-xs' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

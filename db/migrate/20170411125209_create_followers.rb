@@ -7,5 +7,6 @@ class CreateFollowers < ActiveRecord::Migration[5.0]
     end
     add_index :followers, [:user_id],     name: 'followers_user_id'
     add_index :followers, [:follower_id], name: 'followers_follower_id'
+    add_index :followers, [:user_id, :follower_id], name: 'followers_follower_id', unique: true
   end
 end
